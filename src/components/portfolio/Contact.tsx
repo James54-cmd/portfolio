@@ -13,10 +13,34 @@ export function Contact() {
   const [ref, visible] = useReveal();
   const [fields, setFields] = useState({ name: "", email: "", message: "" });
   const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!fields.name || !fields.email || !fields.message) return;
-    setSent(true);
+    setError(null);
+    setSending(true);
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(fields),
+      });
+
+      const data = (await res.json()) as { error?: string };
+      if (!res.ok) {
+        setError(data.error ?? "Failed to send message.");
+        return;
+      }
+
+      setSent(true);
+      setFields({ name: "", email: "", message: "" });
+    } catch {
+      setError("Failed to send message.");
+    } finally {
+      setSending(false);
+    }
   };
 
   const inputClass =
@@ -41,6 +65,13 @@ export function Contact() {
           <div className="border border-[var(--color-border-accent)] bg-[color-mix(in_oklab,var(--color-accent)_6%,transparent)] p-8 font-mono text-sm text-[var(--color-accent)]">
             <p>&gt; Message received. Transmission successful.</p>
             <p className="mt-2 text-[var(--color-text-muted)]"># I&apos;ll get back to you within 24hrs.</p>
+            <button
+              type="button"
+              onClick={() => setSent(false)}
+              className="mt-4 cursor-pointer border border-[var(--color-border-accent)] bg-transparent px-4 py-2 font-mono text-xs uppercase tracking-[0.14em] text-[var(--color-accent)] transition-colors hover:bg-[color-mix(in_oklab,var(--color-accent)_14%,transparent)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
+            >
+              $ send_another
+            </button>
           </div>
         ) : (
           <div className="font-mono text-[13px]">
@@ -77,10 +108,16 @@ export function Contact() {
             <button
               type="button"
               onClick={handleSubmit}
+              disabled={sending}
               className="cursor-pointer border-none bg-[var(--color-accent)] px-9 py-3.5 font-mono text-[13px] font-bold uppercase tracking-[0.15em] text-[var(--color-bg-deep)] transition-colors hover:bg-[var(--color-accent-dim)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
             >
-              $ send_message
+              {sending ? "$ sending..." : "$ send_message"}
             </button>
+            {error && (
+              <p className="mt-3 font-mono text-xs text-[#ff7b72]">
+                &gt; {error}
+              </p>
+            )}
           </div>
         )}
 
