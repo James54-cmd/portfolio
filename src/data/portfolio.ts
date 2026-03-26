@@ -104,33 +104,15 @@ export const projects: Project[] = [
 
 export const timeline = [
   {
+    hash: "e1b7a2c",
+    date: "2025-08 to 2026-03 (8 mos)",
+    msg: "feat: joined Abstract Digital as Full-Time Web Developer",
+    detail: "Built web applications using Next.js, Supabase, TypeScript, Visual Studio Code, and Cursor.",
+  },
+  {
     hash: "a3f1c9b",
-    date: "2024-03",
-    msg: "feat: joined TechCorp as Senior Fullstack Engineer",
-    detail: "Led a team of 6, shipped 3 major product features.",
-  },
-  {
-    hash: "d8e2f4a",
-    date: "2023-06",
-    msg: "feat: launched NeuralStack v1.0 to production",
-    detail: "10k users in first month. Zero downtime.",
-  },
-  {
-    hash: "f7b1e3d",
-    date: "2022-09",
-    msg: "chore: graduated B.Sc. Computer Science — UP Cebu",
-    detail: "Thesis: Distributed ML inference at the edge.",
-  },
-  {
-    hash: "c2a9b5f",
-    date: "2021-03",
-    msg: "init: first open source contribution merged",
-    detail: "PR to React ecosystem library. 200+ ⭐ on own repo.",
-  },
-  {
-    hash: "9e4d2c1",
-    date: "2020-06",
-    msg: "init: wrote first Hello World in JavaScript",
-    detail: "The beginning of everything.",
+    date: "2025-01 to 2025-04",
+    msg: "feat: interned at Mandaue City Hall",
+    detail: "Built a school management system for Mandaue City College using .NET web development, C#, Visual Studio, and MySQL.",
   },
 ] as const;
