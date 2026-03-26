@@ -9,7 +9,7 @@ export function Nav() {
 
   return (
     <nav
-      className="fixed top-0 right-0 left-0 z-50 flex items-center justify-between border-b border-white/[0.06] bg-[color-mix(in_oklab,var(--color-bg-deep)_88%,transparent)] px-6 py-4 backdrop-blur-md"
+      className="sticky top-0 z-50 flex items-center justify-between border-b border-white/[0.06] bg-[color-mix(in_oklab,var(--color-bg-deep)_88%,transparent)] px-6 py-4 backdrop-blur-md"
       aria-label="Primary"
     >
       <a
