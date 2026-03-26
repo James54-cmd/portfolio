@@ -1,8 +1,57 @@
-export const skills = {
-  frontend: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Redux", "Three.js"],
-  backend: ["Node.js", "Express", "NestJS", "PostgreSQL", "MongoDB", "Redis"],
-  tools: ["Docker", "Git", "CI/CD", "AWS", "Figma", "Linux"],
-} as const;
+import type { SkillIconKey } from "./skillIcons";
+
+export type SkillItem = {
+  readonly name: string;
+  readonly icon: SkillIconKey;
+};
+
+export const skills: {
+  frontend: readonly SkillItem[];
+  backend: readonly SkillItem[];
+  tools: readonly SkillItem[];
+  soft: readonly SkillItem[];
+} = {
+  frontend: [
+    { name: "React", icon: "layers" },
+    { name: "Next.js", icon: "appWindow" },
+    { name: "TypeScript", icon: "fileType" },
+    { name: "Tailwind CSS", icon: "wind" },
+    { name: "HTML", icon: "fileCode2" },
+    { name: "CSS", icon: "paintbrush" },
+    { name: "Three.js", icon: "box" },
+    { name: "Shadcn UI", icon: "blocks" },
+    { name: "Lucide", icon: "sparkles" },
+  ],
+  backend: [
+    { name: "Node.js", icon: "server" },
+    { name: "Next.js", icon: "appWindow" },
+    { name: "NestJS", icon: "hexagon" },
+    { name: "PostgreSQL", icon: "database" },
+    { name: "MySQL", icon: "table2" },
+    { name: "NoSQL", icon: "layers2" },
+    { name: "Supabase", icon: "zap" },
+    { name: "PHP", icon: "fileCode" },
+  ],
+  tools: [
+    { name: "Git", icon: "gitBranch" },
+    { name: "Figma", icon: "penTool" },
+    { name: "Cursor", icon: "mousePointer2" },
+    { name: "ChatGPT", icon: "messageSquare" },
+    { name: "Claude", icon: "bot" },
+  ],
+  soft: [
+    { name: "Leadership", icon: "leadership" },
+    { name: "Hardworking", icon: "hardworking" },
+    { name: "Communication", icon: "communication" },
+    { name: "Collaboration", icon: "collaboration" },
+    { name: "Problem-solving", icon: "problemSolving" },
+    { name: "Adaptability", icon: "adaptability" },
+    { name: "Time management", icon: "timeManagement" },
+    { name: "Empathy", icon: "empathy" },
+    { name: "Critical thinking", icon: "criticalThinking" },
+    { name: "Accountability", icon: "accountability" },
+  ],
+};
 
 export type Project = {
   path: string;
