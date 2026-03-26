@@ -238,7 +238,7 @@ export function Skills() {
   );
 
   return (
-    <section id="skills" className="relative px-8 py-28" aria-labelledby="skills-heading">
+    <section id="skills" className="relative px-4 py-16 sm:px-6 sm:py-20 md:px-8 md:py-28" aria-labelledby="skills-heading">
       <style>{`
         @keyframes skills-scan {
           0%   { transform: translateY(-100%); opacity: 0; }
@@ -285,7 +285,7 @@ export function Skills() {
         <h2
           id="skills-heading"
           ref={titleRef}
-          className="mb-14 font-[family-name:var(--font-display)] font-black leading-[0.95] tracking-tight text-[var(--color-text-primary)] transition-all duration-700 ease-out"
+          className="mb-8 font-[family-name:var(--font-display)] font-black leading-[0.95] tracking-tight text-[var(--color-text-primary)] transition-all duration-700 ease-out sm:mb-14"
           style={{
             fontSize: "clamp(2rem, 6vw, 4rem)",
             opacity: titleVisible ? 1 : 0,
@@ -361,7 +361,7 @@ export function Skills() {
           </div>
 
           <div
-            className="relative z-10 flex items-center justify-between gap-4 border-b px-6 py-3"
+            className="relative z-10 flex items-center justify-between gap-3 border-b px-3 py-2.5 sm:gap-4 sm:px-6 sm:py-3"
             style={{
               borderColor: "color-mix(in oklab, var(--color-accent) 10%, transparent)",
               background: "color-mix(in oklab, var(--color-accent) 3%, transparent)",
@@ -401,7 +401,7 @@ export function Skills() {
 
           <div className="relative z-10 divide-y divide-[color-mix(in_oklab,var(--color-accent)_6%,transparent)]">
             {categoryMeta.map((meta) => (
-              <div key={meta.id} className="px-6 py-8 sm:px-10">
+              <div key={meta.id} className="px-3 py-5 sm:px-6 sm:py-8 md:px-10">
                 <CategoryRow
                   id={meta.id}
                   label={meta.label}
@@ -415,7 +415,7 @@ export function Skills() {
           </div>
 
           <div
-            className="relative z-10 flex items-center justify-between border-t px-6 py-4 sm:px-10"
+            className="relative z-10 flex items-center justify-between border-t px-3 py-3 sm:px-6 sm:py-4 md:px-10"
             style={{ borderColor: "color-mix(in oklab, var(--color-accent) 10%, transparent)" }}
           >
             <span className="font-mono text-[13px] text-[var(--color-text-primary)]">{"}"}</span>

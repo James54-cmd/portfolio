@@ -16,7 +16,7 @@ function TimelineEntry({ entry, delay }: { entry: (typeof timeline)[number]; del
   return (
     <div
       ref={ref}
-      className="group/entry relative mb-3 flex gap-5 overflow-hidden rounded-sm border p-4 transition-all duration-500 last:mb-0 sm:gap-6 sm:p-5"
+      className="group/entry relative mb-3 flex gap-3 overflow-hidden rounded-sm border p-3 transition-all duration-500 last:mb-0 sm:gap-5 sm:p-4 md:gap-6 md:p-5"
       style={{
         borderColor: "color-mix(in oklab, var(--color-accent) 12%, transparent)",
         background:
@@ -141,7 +141,7 @@ export function Timeline() {
   return (
     <section
       id="timeline"
-      className="relative overflow-hidden px-8 py-28"
+      className="relative overflow-hidden px-4 py-16 sm:px-6 sm:py-20 md:px-8 md:py-28"
       style={{
         background:
           "radial-gradient(120% 80% at 10% 0%, color-mix(in oklab, var(--color-accent) 5%, transparent) 0%, transparent 52%), radial-gradient(90% 70% at 100% 100%, color-mix(in oklab, var(--color-magenta) 5%, transparent) 0%, transparent 58%)",
@@ -190,13 +190,13 @@ export function Timeline() {
         >
           TIME<span style={{ color: "var(--color-accent)" }}>LINE</span>
         </h2>
-        <p className="mb-12 font-mono text-xs" style={{ color: "var(--color-text-dim)" }}>
+        <p className="mb-8 font-mono text-xs sm:mb-12" style={{ color: "var(--color-text-dim)" }}>
           $ git log --oneline <span style={{ color: "var(--color-accent)" }}>--graph</span> --author=&quot;<span style={{ color: "#ffcc00" }}>James Fanuel Damaso</span>&quot;
         </p>
 
         <div
           ref={panelRef}
-          className="relative overflow-hidden rounded-sm border p-6 sm:p-8"
+          className="relative overflow-hidden rounded-sm border p-4 sm:p-6 md:p-8"
           style={{
             borderColor: "color-mix(in oklab, var(--color-accent) 15%, transparent)",
             background:
@@ -230,7 +230,7 @@ export function Timeline() {
 
           {/* Panel header */}
           <div
-            className="relative z-10 mb-6 flex items-center justify-between border-b pb-4"
+            className="relative z-10 mb-4 flex flex-wrap items-center justify-between gap-2 border-b pb-3 sm:mb-6 sm:pb-4"
             style={{ borderColor: "color-mix(in oklab, var(--color-accent) 10%, transparent)" }}
           >
             <div className="flex items-center gap-2.5">

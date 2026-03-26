@@ -50,13 +50,13 @@ export function Hero() {
   return (
     <section
       id="hero"
-      className="relative flex min-h-screen flex-col justify-center overflow-hidden px-6 pt-28 pb-16 md:px-8"
+      className="relative flex min-h-screen flex-col justify-center overflow-hidden px-4 pt-20 pb-12 sm:px-6 sm:pt-28 sm:pb-16 md:px-8"
     >
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-10%,color-mix(in_oklab,var(--color-accent)_12%,transparent),transparent_55%)]"
       />
-      <div className="relative mx-auto grid w-full max-w-[1280px] gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(300px,46%)] lg:items-center lg:gap-8 xl:gap-14">
+      <div className="relative mx-auto grid w-full max-w-[1280px] gap-8 sm:gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(300px,46%)] lg:items-center lg:gap-8 xl:gap-14">
         <div className="min-w-0">
           <p className="mb-4 font-mono text-[13px] tracking-[0.2em] text-[var(--color-accent)] [text-shadow:0_0_20px_rgba(0,0,0,0.6)]">
             &gt; HELLO, WORLD.
@@ -79,14 +79,14 @@ export function Hero() {
             <button
               type="button"
               onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}
-              className="cursor-pointer border-none bg-[var(--color-accent)] px-8 py-3.5 font-mono text-[13px] font-bold uppercase tracking-[0.15em] text-[var(--color-bg-deep)] transition-all duration-200 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:bg-[var(--color-accent-dim)] hover:shadow-[4px_4px_0_color-mix(in_oklab,var(--color-accent)_28%,transparent)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
+              className="cursor-pointer border-none bg-[var(--color-accent)] px-5 py-3 font-mono text-[12px] font-bold uppercase tracking-[0.15em] text-[var(--color-bg-deep)] transition-all duration-200 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:bg-[var(--color-accent-dim)] hover:shadow-[4px_4px_0_color-mix(in_oklab,var(--color-accent)_28%,transparent)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)] sm:px-8 sm:py-3.5 sm:text-[13px]"
             >
               ./view_projects
             </button>
             <button
               type="button"
               onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-              className="cursor-pointer border border-[color-mix(in_oklab,var(--color-accent)_35%,transparent)] bg-[color-mix(in_oklab,var(--color-bg-deep)_55%,transparent)] px-8 py-3.5 font-mono text-[13px] font-bold uppercase tracking-[0.15em] text-[var(--color-accent)] backdrop-blur-sm transition-all duration-200 hover:border-[var(--color-accent)] hover:bg-[color-mix(in_oklab,var(--color-accent)_10%,transparent)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
+              className="cursor-pointer border border-[color-mix(in_oklab,var(--color-accent)_35%,transparent)] bg-[color-mix(in_oklab,var(--color-bg-deep)_55%,transparent)] px-5 py-3 font-mono text-[12px] font-bold uppercase tracking-[0.15em] text-[var(--color-accent)] backdrop-blur-sm transition-all duration-200 hover:border-[var(--color-accent)] hover:bg-[color-mix(in_oklab,var(--color-accent)_10%,transparent)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)] sm:px-8 sm:py-3.5 sm:text-[13px]"
             >
               ./contact_me
             </button>
@@ -94,8 +94,8 @@ export function Hero() {
         </div>
 
         {/* Robot: viewport + bottom chrome (Spline badge reads as part of the bar) */}
-        <div className="relative flex min-h-[320px] w-full justify-center lg:min-h-[min(72vh,640px)] lg:justify-end">
-          <div className="flex h-[min(70vh,620px)] w-full max-w-[540px] flex-col overflow-hidden rounded-xl bg-[color-mix(in_oklab,var(--color-bg-panel)_40%,transparent)] shadow-[0_28px_80px_rgba(0,0,0,0.55),0_0_48px_color-mix(in_oklab,var(--color-accent)_8%,transparent)] backdrop-blur-[2px] lg:max-w-none">
+        <div className="relative hidden w-full justify-center lg:flex lg:min-h-[min(72vh,640px)] lg:justify-end">
+          <div className="flex h-[min(70vh,620px)] w-full flex-col overflow-hidden rounded-xl bg-[color-mix(in_oklab,var(--color-bg-panel)_40%,transparent)] shadow-[0_28px_80px_rgba(0,0,0,0.55),0_0_48px_color-mix(in_oklab,var(--color-accent)_8%,transparent)] backdrop-blur-[2px]">
             {reduceMotion ? (
               <div className="flex min-h-[280px] flex-1 flex-col items-center justify-center gap-2 px-4 text-center font-mono text-xs text-[var(--color-text-muted)]">
                 <span className="text-[var(--color-accent)]">&gt;</span>

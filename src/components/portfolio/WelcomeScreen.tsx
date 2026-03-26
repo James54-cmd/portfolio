@@ -165,7 +165,7 @@ function ErrorBlock() {
         background: "linear-gradient(180deg, transparent 0%, rgba(255,0,64,0.07) 50%, transparent 100%)",
         animation: "errSweep 1.8s linear infinite",
       }} />
-      <div className="relative z-10 p-8 pb-6">
+      <div className="relative z-10 p-4 pb-4 sm:p-8 sm:pb-6">
         <div className="mb-4 flex items-center justify-between gap-4">
           <span className="font-mono text-[9px] uppercase tracking-[0.4em] text-[#ff0040]"
             style={{ opacity: blink ? 1 : 0.25, transition: "opacity 0.1s" }}>
@@ -388,12 +388,12 @@ export function WelcomeScreen({ onEnter }: { onEnter: () => void }) {
 
       {/* main welcome/error panel */}
       <div
-        className={`fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[var(--color-bg-deep)] p-8 transition-opacity duration-500 ease-out ${
+        className={`fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[var(--color-bg-deep)] p-4 transition-opacity duration-500 ease-out sm:p-8 ${
           fadeOut ? "pointer-events-none opacity-0" : "opacity-100"
         }`}
       >
         {phase === "welcome" && (
-          <div className="absolute top-5 right-5 z-[120] w-[180px]">
+          <div className="absolute top-3 right-3 z-[120] w-[140px] sm:top-5 sm:right-5 sm:w-[180px]">
             <div className="mb-1 h-1.5 w-full overflow-hidden border border-[var(--color-border-subtle)] bg-black/30">
               <div
                 className="h-full bg-[var(--color-accent)] transition-[width] duration-100"
@@ -419,7 +419,7 @@ export function WelcomeScreen({ onEnter }: { onEnter: () => void }) {
         {(phase === "error" || phase === "tvoff") && <FullscreenStatic />}
 
         {phase === "welcome" && (
-          <div className="relative z-[6] w-full max-w-[640px] rounded border border-[var(--color-border-accent)] bg-[var(--color-bg-panel)] p-8 shadow-[0_0_80px_color-mix(in_oklab,var(--color-accent)_8%,transparent),inset_0_0_48px_rgba(0,0,0,0.45)]">
+          <div className="relative z-[6] w-full max-w-[640px] rounded border border-[var(--color-border-accent)] bg-[var(--color-bg-panel)] p-4 shadow-[0_0_80px_color-mix(in_oklab,var(--color-accent)_8%,transparent),inset_0_0_48px_rgba(0,0,0,0.45)] sm:p-8">
             <div className="mb-5 flex items-center gap-1.5">
               <span className="inline-block h-3 w-3 rounded-full bg-[#ff5f57]" />
               <span className="inline-block h-3 w-3 rounded-full bg-[#febc2e]" />
@@ -432,7 +432,7 @@ export function WelcomeScreen({ onEnter }: { onEnter: () => void }) {
                 <button
                   type="button"
                   onClick={handleEnter}
-                  className="cursor-pointer border border-[var(--color-accent)] bg-transparent px-9 py-3 font-mono text-sm uppercase tracking-[0.2em] text-[var(--color-accent)] transition-all duration-200 hover:bg-[color-mix(in_oklab,var(--color-accent)_14%,transparent)] hover:shadow-[0_0_24px_color-mix(in_oklab,var(--color-accent)_28%,transparent)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
+                  className="cursor-pointer border border-[var(--color-accent)] bg-transparent px-6 py-2.5 font-mono text-xs uppercase tracking-[0.2em] text-[var(--color-accent)] transition-all duration-200 hover:bg-[color-mix(in_oklab,var(--color-accent)_14%,transparent)] hover:shadow-[0_0_24px_color-mix(in_oklab,var(--color-accent)_28%,transparent)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)] sm:px-9 sm:py-3 sm:text-sm"
                 >
                   [ ENTER PORTFOLIO ]
                 </button>
@@ -442,7 +442,7 @@ export function WelcomeScreen({ onEnter }: { onEnter: () => void }) {
         )}
 
         {(phase === "error" || phase === "tvoff") && (
-          <div className="relative z-[6] w-full max-w-[600px] overflow-hidden border border-[#ff004033] bg-black shadow-[0_0_60px_rgba(255,0,64,0.2),inset_0_0_80px_rgba(0,0,0,0.8)]">
+          <div className="relative z-[6] w-full max-w-[min(600px,100%)] overflow-hidden border border-[#ff004033] bg-black shadow-[0_0_60px_rgba(255,0,64,0.2),inset_0_0_80px_rgba(0,0,0,0.8)]">
             <ErrorBlock />
           </div>
         )}

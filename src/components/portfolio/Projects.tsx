@@ -201,7 +201,7 @@ function ProjectCard({ project, delay }: { project: (typeof projects)[number]; d
         )}
 
         {/* Content area */}
-        <div className="relative px-6 py-5">
+        <div className="relative px-4 py-4 sm:px-6 sm:py-5">
           {/* Subtle grid behind content */}
           <div
             className="pointer-events-none absolute inset-0 opacity-[0.02]"
@@ -275,7 +275,7 @@ export function Projects() {
   return (
     <section
       id="projects"
-      className="relative px-8 py-28"
+      className="relative px-4 py-16 sm:px-6 sm:py-20 md:px-8 md:py-28"
       style={{
         background: "radial-gradient(110% 70% at 70% 0%, color-mix(in oklab, var(--color-accent) 4%, transparent) 0%, transparent 55%)",
       }}
@@ -288,7 +288,7 @@ export function Projects() {
         <h2
           id="projects-heading"
           ref={titleRef}
-          className="mb-14 font-[family-name:var(--font-display)] font-black leading-[0.95] tracking-tight text-[var(--color-text-primary)] transition-all duration-700 ease-out"
+          className="mb-8 font-[family-name:var(--font-display)] font-black leading-[0.95] tracking-tight text-[var(--color-text-primary)] transition-all duration-700 ease-out sm:mb-14"
           style={{
             fontSize: "clamp(2rem, 6vw, 4rem)",
             opacity: titleVisible ? 1 : 0,
@@ -305,7 +305,7 @@ export function Projects() {
         </h2>
 
         <div
-          className={`grid grid-cols-1 gap-8 ${
+          className={`grid grid-cols-1 gap-5 sm:gap-8 ${
             hasMultipleProjects ? "md:grid-cols-2 3xl:grid-cols-3" : ""
           }`}
         >

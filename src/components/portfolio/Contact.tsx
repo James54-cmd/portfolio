@@ -61,12 +61,12 @@ export function Contact() {
     "w-full border-0 border-b border-[var(--color-border-subtle)] bg-transparent py-2 font-mono text-[13px] text-[var(--color-accent)] outline-none transition-[border-color] duration-200 focus:border-[var(--color-accent)]";
 
   return (
-    <section id="contact" className="px-8 pt-24 pb-32">
+    <section id="contact" className="px-4 pt-16 pb-20 sm:px-6 sm:pt-20 sm:pb-24 md:px-8 md:pt-24 md:pb-32">
       <div className="mx-auto max-w-[640px]">
         <p className="mb-2 font-mono text-xs text-[var(--color-text-dim)]">{"// section_05"}</p>
         <h2
           ref={ref}
-          className="mb-12 font-[family-name:var(--font-display)] text-[clamp(2rem,6vw,4rem)] font-black text-[var(--color-text-primary)] transition-all duration-[600ms]"
+          className="mb-8 font-[family-name:var(--font-display)] text-[clamp(2rem,6vw,4rem)] font-black text-[var(--color-text-primary)] transition-all duration-[600ms] sm:mb-12"
           style={{
             opacity: visible ? 1 : 0,
             transform: visible ? "none" : "translateX(-20px)",
@@ -123,7 +123,7 @@ export function Contact() {
               type="button"
               onClick={handleSubmit}
               disabled={sending}
-              className="cursor-pointer border-none bg-[var(--color-accent)] px-9 py-3.5 font-mono text-[13px] font-bold uppercase tracking-[0.15em] text-[var(--color-bg-deep)] transition-colors hover:bg-[var(--color-accent-dim)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
+              className="w-full cursor-pointer border-none bg-[var(--color-accent)] px-9 py-3.5 font-mono text-[13px] font-bold uppercase tracking-[0.15em] text-[var(--color-bg-deep)] transition-colors hover:bg-[var(--color-accent-dim)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)] sm:w-auto"
             >
               {sending ? "$ sending..." : "$ send_message"}
             </button>
@@ -135,7 +135,7 @@ export function Contact() {
           </div>
         )}
 
-        <div className="mt-12 flex flex-wrap items-center gap-6">
+        <div className="mt-8 flex flex-wrap items-center gap-4 sm:mt-12 sm:gap-6">
           <a
             href="tel:+639626377843"
             className="inline-flex items-center gap-2 font-mono text-xs tracking-widest text-[var(--color-text-muted)] no-underline transition-colors hover:text-[var(--color-accent)] focus-visible:rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"

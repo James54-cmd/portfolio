@@ -42,7 +42,7 @@ function DialogContent({ className, children, ...props }: React.ComponentProps<t
       <DialogPrimitive.Content
         data-slot="dialog-content"
         className={cn(
-          "fixed top-[50%] left-[50%] z-50 grid w-[min(96vw,980px)] max-w-[980px] translate-x-[-50%] translate-y-[-50%] gap-4 border border-[var(--color-border-accent)] bg-[var(--color-bg-deep)] p-5 text-[var(--color-text-primary)] shadow-[0_16px_60px_rgba(0,0,0,0.55)] duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 sm:p-6",
+          "fixed top-[50%] left-[50%] z-50 grid w-[min(96vw,980px)] max-h-[92vh] max-w-[980px] translate-x-[-50%] translate-y-[-50%] gap-3 overflow-y-auto border border-[var(--color-border-accent)] bg-[var(--color-bg-deep)] p-3 text-[var(--color-text-primary)] shadow-[0_16px_60px_rgba(0,0,0,0.55)] duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 sm:gap-4 sm:p-5 md:p-6",
           className,
         )}
         {...props}
