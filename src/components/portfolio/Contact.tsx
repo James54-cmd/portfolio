@@ -2,23 +2,24 @@
 
 import { useState } from "react";
 import { useReveal } from "@/hooks/useReveal";
-import { Contact as ContactIcon, GitBranch, Globe, Phone } from "lucide-react";
+import { Phone } from "lucide-react";
+import { FaFacebook, FaGithub, FaLinkedin } from "react-icons/fa6";
 
 const social = [
   {
-    id: "profile",
+    id: "linkedin",
     href: "https://www.linkedin.com/in/james-fanuel-n-damaso-0b71a1359/",
-    icon: ContactIcon,
+    icon: FaLinkedin,
   },
   {
     id: "github",
     href: "https://github.com/James54-cmd",
-    icon: GitBranch,
+    icon: FaGithub,
   },
   {
     id: "facebook",
     href: "https://www.facebook.com/Damasolman/",
-    icon: Globe,
+    icon: FaFacebook,
   },
 ] as const;
 

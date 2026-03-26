@@ -81,7 +81,6 @@ function SkillTag({
         <Icon
           className="transition-transform duration-300 ease-out group-hover/tag:scale-110"
           style={{ width: "0.8rem", height: "0.8rem" }}
-          strokeWidth={1.75}
         />
       </span>
 
