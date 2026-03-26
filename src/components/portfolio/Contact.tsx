@@ -2,11 +2,24 @@
 
 import { useState } from "react";
 import { useReveal } from "@/hooks/useReveal";
+import { Contact as ContactIcon, GitBranch, Globe, Phone } from "lucide-react";
 
 const social = [
-  { id: "github", href: "#" },
-  { id: "linkedin", href: "#" },
-  { id: "twitter", href: "#" },
+  {
+    id: "profile",
+    href: "https://www.linkedin.com/in/james-fanuel-n-damaso-0b71a1359/",
+    icon: ContactIcon,
+  },
+  {
+    id: "github",
+    href: "https://github.com/James54-cmd",
+    icon: GitBranch,
+  },
+  {
+    id: "facebook",
+    href: "https://www.facebook.com/Damasolman/",
+    icon: Globe,
+  },
 ] as const;
 
 export function Contact() {
@@ -121,14 +134,24 @@ export function Contact() {
           </div>
         )}
 
-        <div className="mt-12 flex flex-wrap gap-6">
+        <div className="mt-12 flex flex-wrap items-center gap-6">
+          <a
+            href="tel:+639626377843"
+            className="inline-flex items-center gap-2 font-mono text-xs tracking-widest text-[var(--color-text-muted)] no-underline transition-colors hover:text-[var(--color-accent)] focus-visible:rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
+          >
+            <Phone className="h-3.5 w-3.5" />
+            <span>+63 962 637 7843</span>
+          </a>
           {social.map((s) => (
             <a
               key={s.id}
               href={s.href}
-              className="font-mono text-xs tracking-widest text-[var(--color-text-muted)] no-underline transition-colors hover:text-[var(--color-accent)] focus-visible:rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 font-mono text-xs tracking-widest text-[var(--color-text-muted)] no-underline transition-colors hover:text-[var(--color-accent)] focus-visible:rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
             >
-              [{s.id}]
+              <s.icon className="h-3.5 w-3.5" />
+              <span>[{s.id}]</span>
             </a>
           ))}
         </div>
