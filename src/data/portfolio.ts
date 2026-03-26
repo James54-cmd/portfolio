@@ -57,39 +57,48 @@ export type Project = {
   path: string;
   desc: string;
   tech: string[];
-  github: string;
+  github?: string;
   live: string;
+  images?: string[];
 };
 
 export const projects: Project[] = [
   {
-    path: "/projects/devflow",
-    desc:
-      "A real-time collaborative code editor with live preview, syntax highlighting, and WebSocket sync.",
-    tech: ["React", "Node.js", "WebSocket", "Monaco"],
-    github: "#",
-    live: "#",
+    path: "/projects/abide",
+    desc: "Faith-centered Bible app with verse highlights/notes/favorites and AI encouragement chat with history.",
+    tech: ["Next.js", "TypeScript", "Supabase", "Tailwind CSS", "OpenAI", "RAG"],
+    github: "https://github.com/James54-cmd/abide",
+    live: "https://abide-beta.vercel.app/login",
+    images: [
+      "/images/projects/abide/01-login.png",
+      "/images/projects/abide/02-home.png",
+      "/images/projects/abide/03-chat.png",
+      "/images/projects/abide/04-bible.png",
+      "/images/projects/abide/05-favorites.png",
+      "/images/projects/abide/06-verses.png",
+    ],
   },
   {
-    path: "/projects/neuralstack",
-    desc: "ML pipeline orchestrator with drag-and-drop DAG builder, job scheduling, and metrics dashboard.",
-    tech: ["Next.js", "Python", "PostgreSQL", "Docker"],
-    github: "#",
-    live: "#",
+    path: "/projects/ondafit",
+    desc: "Team project for booking courts and studios with operations dashboards and smart scheduling flows.",
+    tech: ["Next.js", "TypeScript", "Supabase", "AI", "Figma"],
+    live: "https://onda.fit/",
+    images: [
+      "/images/projects/ondafit/01-dashboard.png",
+      "/images/projects/ondafit/02-facilities.png",
+      "/images/projects/ondafit/03-schedules.png",
+      "/images/projects/ondafit/04-events.png",
+      "/images/projects/ondafit/05-reviews.png",
+      "/images/projects/ondafit/06-transactions.png",
+    ],
   },
   {
-    path: "/projects/vaultapi",
-    desc: "Zero-trust secrets management API with AES-256 encryption, RBAC, and audit logging.",
-    tech: ["NestJS", "Redis", "JWT", "AWS KMS"],
-    github: "#",
-    live: "#",
-  },
-  {
-    path: "/projects/gridlauncher",
-    desc: "E-commerce platform with headless CMS, Stripe integration, and edge-cached storefronts.",
-    tech: ["Next.js", "Stripe", "MongoDB", "Vercel"],
-    github: "#",
-    live: "#",
+    path: "/projects/portfolio",
+    desc: "Cyber-terminal portfolio workspace showcasing skills, project galleries, timeline, and contact flow with interactive UI.",
+    tech: ["Next.js", "TypeScript", "Tailwind CSS", "Spline", "Lucide", "Framer Motion"],
+    github: "https://github.com/James54-cmd/portfolio",
+    live: "https://portfolio-xi-two-93.vercel.app/",
+    images: ["/images/projects/portfolio/01-hero.png"],
   },
 ];
 
