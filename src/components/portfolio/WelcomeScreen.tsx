@@ -346,7 +346,6 @@ export function WelcomeScreen({ onEnter }: { onEnter: () => void }) {
   };
 
   useEffect(() => {
-    if (phase === "done") return;
     const start = performance.now();
     setSkipProgress(0);
     let rafId = 0;
@@ -360,7 +359,7 @@ export function WelcomeScreen({ onEnter }: { onEnter: () => void }) {
 
     rafId = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(rafId);
-  }, [phase]);
+  }, []);
 
   // error auto-advances after a beat
   useEffect(() => {
@@ -393,7 +392,7 @@ export function WelcomeScreen({ onEnter }: { onEnter: () => void }) {
           fadeOut ? "pointer-events-none opacity-0" : "opacity-100"
         }`}
       >
-        {phase !== "done" && (
+        {phase === "welcome" && (
           <div className="absolute top-5 right-5 z-[120] w-[180px]">
             <div className="mb-1 h-1.5 w-full overflow-hidden border border-[var(--color-border-subtle)] bg-black/30">
               <div
