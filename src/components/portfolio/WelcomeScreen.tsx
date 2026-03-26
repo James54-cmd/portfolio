@@ -394,12 +394,8 @@ export function WelcomeScreen({ onEnter }: { onEnter: () => void }) {
         }`}
       >
         {phase !== "done" && (
-          <div className="absolute top-5 right-5 z-[120] w-[260px] rounded border border-[var(--color-border-accent)] bg-[color-mix(in_oklab,var(--color-bg-deep)_84%,transparent)] p-2 shadow-[0_0_28px_color-mix(in_oklab,var(--color-accent)_22%,transparent)]">
-            <div className="mb-2 flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.18em]">
-              <span className="text-[var(--color-accent)]">Skip Intro</span>
-              <span className="text-[var(--color-text-muted)]">{Math.round(skipProgress)}%</span>
-            </div>
-            <div className="mb-2 h-2.5 w-full overflow-hidden border border-[var(--color-border-subtle)] bg-black/40">
+          <div className="absolute top-5 right-5 z-[120] w-[180px]">
+            <div className="mb-1 h-1.5 w-full overflow-hidden border border-[var(--color-border-subtle)] bg-black/30">
               <div
                 className="h-full bg-[var(--color-accent)] transition-[width] duration-100"
                 style={{ width: `${skipProgress}%` }}
@@ -409,7 +405,7 @@ export function WelcomeScreen({ onEnter }: { onEnter: () => void }) {
               type="button"
               onClick={handleSkip}
               disabled={!skipReady}
-              className="w-full cursor-pointer border border-[var(--color-border-subtle)] bg-[color-mix(in_oklab,var(--color-bg-deep)_88%,transparent)] px-4 py-2.5 font-mono text-xs font-bold uppercase tracking-[0.2em] text-[var(--color-text-muted)] transition-all enabled:hover:border-[var(--color-accent)] enabled:hover:bg-[color-mix(in_oklab,var(--color-accent)_10%,transparent)] enabled:hover:text-[var(--color-accent)] enabled:hover:shadow-[0_0_20px_color-mix(in_oklab,var(--color-accent)_25%,transparent)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)] disabled:cursor-not-allowed disabled:opacity-55"
+              className="w-full cursor-pointer border border-[var(--color-border-subtle)] bg-[color-mix(in_oklab,var(--color-bg-deep)_88%,transparent)] px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--color-text-muted)] transition-colors enabled:hover:border-[var(--color-accent)] enabled:hover:text-[var(--color-accent)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)] disabled:cursor-not-allowed disabled:opacity-55"
             >
               {skipReady ? "Skip" : "Skip loading..."}
             </button>
