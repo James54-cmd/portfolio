@@ -337,6 +337,7 @@ export function WelcomeScreen({ onEnter }: { onEnter: () => void }) {
 
   // welcome → error: user clicks button
   const handleEnter = () => setPhase("error");
+  const handleSkip = () => setPhase("done");
 
   // error auto-advances after a beat
   useEffect(() => {
@@ -369,6 +370,16 @@ export function WelcomeScreen({ onEnter }: { onEnter: () => void }) {
           fadeOut ? "pointer-events-none opacity-0" : "opacity-100"
         }`}
       >
+        {phase !== "done" && (
+          <button
+            type="button"
+            onClick={handleSkip}
+            className="absolute top-5 right-5 z-[120] cursor-pointer border border-[var(--color-border-subtle)] bg-[color-mix(in_oklab,var(--color-bg-deep)_88%,transparent)] px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--color-text-muted)] transition-colors hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
+          >
+            Skip
+          </button>
+        )}
+
         <DotGrid />
         <Scanlines />
         <Grain />
