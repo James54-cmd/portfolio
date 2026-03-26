@@ -18,6 +18,20 @@
   --color-card: var(--color-bg-elevated);
   --color-card-foreground: var(--color-text-primary);
   --color-muted-foreground: var(--color-text-muted);
+  /* shadcn-style controls (Button, etc.) */
+  --color-background: var(--color-bg-deep);
+  --color-foreground: var(--color-text-primary);
+  --color-primary: var(--color-accent);
+  --color-primary-foreground: var(--color-bg-deep);
+  --color-destructive: #dc2626;
+  --color-destructive-foreground: #fafafa;
+  --color-secondary: var(--color-bg-elevated);
+  --color-secondary-foreground: var(--color-text-primary);
+  --color-muted: var(--color-bg-panel);
+  --color-accent-foreground: var(--color-bg-deep);
+  --color-border: var(--color-border-subtle);
+  --color-input: var(--color-border-subtle);
+  --color-ring: color-mix(in oklab, var(--color-accent) 45%, transparent);
   /* Set on <html> via next/font: --font-ibm-mono, --font-syne */
   --font-mono: var(--font-ibm-mono), ui-monospace, monospace;
   --font-display: var(--font-syne), ui-sans-serif, system-ui, sans-serif;

@@ -51,13 +51,9 @@ export function BeamsBackground({
   const logicalSizeRef = useRef({ width: 0, height: 0 });
   const MINIMUM_BEAMS = 20;
 
-  const opacityMap = {
-    subtle: 0.7,
-    medium: 0.85,
-    strong: 1,
-  };
-
   useEffect(() => {
+    const opacityByIntensity = { subtle: 0.7, medium: 0.85, strong: 1 } as const;
+    const opacityFactor = opacityByIntensity[intensity];
     const canvas = canvasRef.current;
     const container = containerRef.current;
     if (!canvas || !container) return;
@@ -112,7 +108,7 @@ export function BeamsBackground({
       c.rotate((beam.angle * Math.PI) / 180);
 
       const pulsingOpacity =
-        beam.opacity * (0.8 + Math.sin(beam.pulse) * 0.2) * opacityMap[intensity];
+        beam.opacity * (0.8 + Math.sin(beam.pulse) * 0.2) * opacityFactor;
 
       const gradient = c.createLinearGradient(0, 0, 0, beam.length);
 
