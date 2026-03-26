@@ -326,8 +326,6 @@ function OkFlash({ onDone }: { onDone: () => void }) {
   );
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-
 type Phase = "welcome" | "error" | "tvoff" | "ok" | "done";
 
 export function WelcomeScreen({ onEnter }: { onEnter: () => void }) {
