@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Contact } from "./Contact";
 import { DotGrid } from "./DotGrid";
+import { FloatingCv } from "./FloatingCv";
 import { Footer } from "./Footer";
 import { Grain } from "./Grain";
 import { Hero } from "./Hero";
@@ -19,6 +20,7 @@ export function Portfolio() {
   return (
     <div className="relative min-h-screen bg-[var(--color-bg-deep)] text-[var(--color-text-primary)]">
       {!entered && <WelcomeScreen onEnter={() => setEntered(true)} />}
+      {entered && <FloatingCv />}
 
       <div
         className={`transition-[opacity,transform,filter] duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-[opacity,transform] ${entered ? "pointer-events-auto translate-y-0 opacity-100" : "pointer-events-none translate-y-2 opacity-0"}`}
