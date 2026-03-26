@@ -36,7 +36,7 @@ const InteractiveRobotSpline = dynamic(
   },
 );
 
-export function Hero() {
+export function Home() {
   const [reduceMotion, setReduceMotion] = useState(false);
 
   useEffect(() => {
@@ -49,7 +49,7 @@ export function Hero() {
 
   return (
     <section
-      id="hero"
+      id="home"
       className="relative flex min-h-screen flex-col justify-center overflow-hidden px-4 pt-20 pb-12 sm:px-6 sm:pt-28 sm:pb-16 md:px-8"
     >
       <div

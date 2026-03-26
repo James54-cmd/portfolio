@@ -6,7 +6,7 @@ import { DotGrid } from "./DotGrid";
 import { FloatingCv } from "./FloatingCv";
 import { Footer } from "./Footer";
 import { Grain } from "./Grain";
-import { Hero } from "./Hero";
+import { Home } from "./Home";
 import { Nav } from "./Nav";
 import { Projects } from "./Projects";
 import { Scanlines } from "./Scanlines";
@@ -32,7 +32,7 @@ export function Portfolio() {
         <Grain />
         <div className="relative z-[6]">
           <Nav />
-          <Hero />
+          <Home />
           <div className="border-t border-[#0f0f0f]" />
           <Skills />
           <div className="border-t border-[#0f0f0f]" />

@@ -1,6 +1,6 @@
 "use client";
 
-const links = ["hero", "skills", "projects", "timeline", "contact"] as const;
+const links = ["home", "skills", "projects", "timeline", "contact"] as const;
 
 export function Nav() {
   const scrollTo = (id: string) => {
@@ -13,11 +13,11 @@ export function Nav() {
       aria-label="Primary"
     >
       <a
-        href="#hero"
+        href="#home"
         className="font-mono text-sm font-bold text-[var(--color-accent)] focus-visible:rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
         onClick={(e) => {
           e.preventDefault();
-          scrollTo("hero");
+          scrollTo("home");
         }}
       >
         &lt;JFD /&gt;
