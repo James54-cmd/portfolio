@@ -1,36 +1,22 @@
 "use client";
 
 import { projects } from "@/data/portfolio";
+import { Dialog, DialogContent, DialogOverlay, DialogTitle } from "@/components/ui/dialog";
 import { useReveal } from "@/hooks/useReveal";
-import Image from "next/image";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
-const IMAGE_LABELS = ["Login", "Home", "Chat", "Bible", "Favorites", "Verses"];
-
-function useAutoSlide(length: number, interval = 4200) {
-  const [index, setIndex] = useState(0);
-  const paused = useRef(false);
-
-  useEffect(() => {
-    if (length <= 1) return;
-    const id = setInterval(() => {
-      if (!paused.current) setIndex((i) => (i + 1) % length);
-    }, interval);
-    return () => clearInterval(id);
-  }, [length, interval]);
-
-  const pause = useCallback(() => { paused.current = true; }, []);
-  const resume = useCallback(() => { paused.current = false; }, []);
-  const go = useCallback((i: number) => { setIndex(i); paused.current = true; }, []);
-
-  return { index, pause, resume, go } as const;
-}
-
-function ProjectCard({ project, delay }: { project: (typeof projects)[number]; delay: number }) {
+function ProjectCard({
+  project,
+  delay,
+  onOpenVideo,
+}: {
+  project: (typeof projects)[number];
+  delay: number;
+  onOpenVideo: (project: (typeof projects)[number]) => void;
+}) {
   const [ref, visible] = useReveal(0.08);
-  const images = useMemo(() => project.images ?? [], [project.images]);
-  const { index: activeImage, pause, resume, go } = useAutoSlide(images.length);
   const [hovered, setHovered] = useState(false);
+  const projectSlug = project.path.split("/").pop();
 
   return (
     <article
@@ -42,8 +28,8 @@ function ProjectCard({ project, delay }: { project: (typeof projects)[number]; d
         transition: "opacity 0.8s ease-out, transform 0.8s ease-out",
         transitionDelay: `${delay}ms`,
       }}
-      onMouseEnter={() => { setHovered(true); pause(); }}
-      onMouseLeave={() => { setHovered(false); resume(); }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
     >
       {/* Outer glow on hover */}
       <div
@@ -83,122 +69,87 @@ function ProjectCard({ project, delay }: { project: (typeof projects)[number]; d
             {project.path}
           </span>
           <span className="ml-auto font-mono text-[9px] text-[var(--color-text-dim)]">
-            {images.length > 0 && `${activeImage + 1}/${images.length}`}
+            {project.video ? "video" : "no media"}
           </span>
         </div>
 
-        {/* Screenshot gallery */}
-        {images.length > 0 && (
-          <div className="relative">
-            {/* Main image with crossfade */}
-            <div className="relative aspect-[16/10] overflow-hidden bg-[#060606]">
-              {images.map((src, idx) => (
-                <Image
-                  key={src}
-                  src={src}
-                  alt={`${IMAGE_LABELS[idx] ?? `Screen ${idx + 1}`} — ${project.path.split("/").pop()}`}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  className="object-cover object-top transition-[opacity,transform] duration-700 ease-out"
-                  style={{
-                    opacity: idx === activeImage ? 1 : 0,
-                    transform: idx === activeImage ? "scale(1)" : "scale(1.04)",
-                    zIndex: idx === activeImage ? 2 : 1,
-                    position: "absolute",
-                    inset: 0,
-                  }}
-                  loading={idx === 0 ? "eager" : "lazy"}
-                  priority={idx === 0}
-                />
-              ))}
-
-              {/* Gradient vignette over image */}
-              <div
-                className="pointer-events-none absolute inset-0 z-[3]"
-                style={{
-                  background: "linear-gradient(180deg, rgba(0,0,0,0.15) 0%, transparent 30%, transparent 65%, rgba(3,3,3,0.6) 100%), linear-gradient(90deg, rgba(3,3,3,0.25) 0%, transparent 15%, transparent 85%, rgba(3,3,3,0.25) 100%)",
-                }}
-                aria-hidden
+        {/* Video gallery */}
+        <div className="relative">
+          <div className="relative aspect-[16/10] overflow-hidden bg-[#060606]">
+            {project.video ? (
+              <video
+                key={project.video}
+                src={project.video}
+                className="h-full w-full object-cover object-top"
+                muted
+                playsInline
+                preload="metadata"
+                aria-label={`${projectSlug} demo video`}
               />
-
-              {/* Scanline micro-texture */}
-              <div
-                className="pointer-events-none absolute inset-0 z-[4] opacity-[0.04]"
-                style={{
-                  backgroundImage: "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.06) 2px, rgba(255,255,255,0.06) 4px)",
-                }}
-                aria-hidden
-              />
-            </div>
-
-            {/* Thumbnail rail */}
-            {images.length > 1 && (
-              <div
-                className="flex items-center gap-1 border-t px-3 py-2"
-                style={{
-                  borderColor: "color-mix(in oklab, var(--color-accent) 6%, transparent)",
-                  background: "color-mix(in oklab, var(--color-bg-deep) 95%, var(--color-accent) 5%)",
-                }}
-              >
-                {images.map((src, idx) => {
-                  const isActive = idx === activeImage;
-                  return (
-                    <button
-                      key={src}
-                      type="button"
-                      onClick={() => go(idx)}
-                      className="group/thumb relative shrink-0 overflow-hidden transition-all duration-300"
-                      style={{
-                        width: isActive ? "3.8rem" : "2.8rem",
-                        height: "2rem",
-                        borderRadius: "2px",
-                        outline: isActive
-                          ? "1.5px solid color-mix(in oklab, var(--color-accent) 55%, transparent)"
-                          : "1px solid color-mix(in oklab, var(--color-accent) 12%, transparent)",
-                        outlineOffset: "1px",
-                      }}
-                      aria-label={`View ${IMAGE_LABELS[idx] ?? `screenshot ${idx + 1}`}`}
-                    >
-                      <Image
-                        src={src}
-                        alt=""
-                        fill
-                        sizes="80px"
-                        className="object-cover object-top transition-[opacity,filter] duration-300"
-                        style={{
-                          opacity: isActive ? 1 : 0.5,
-                          filter: isActive ? "none" : "grayscale(0.6) brightness(0.7)",
-                        }}
-                      />
-                      {isActive && (
-                        <span
-                          className="absolute inset-x-0 bottom-0 h-0.5"
-                          style={{ background: "var(--color-accent)", opacity: 0.8 }}
-                          aria-hidden
-                        />
-                      )}
-                    </button>
-                  );
-                })}
-
-                {/* progress dots (mobile fallback) */}
-                <div className="ml-auto flex items-center gap-1 sm:hidden" aria-hidden>
-                  {images.map((_, idx) => (
-                    <span
-                      key={idx}
-                      className="block h-1 rounded-full transition-all duration-300"
-                      style={{
-                        width: idx === activeImage ? "1rem" : "0.25rem",
-                        background: idx === activeImage ? "var(--color-accent)" : "var(--color-text-dim)",
-                        opacity: idx === activeImage ? 1 : 0.5,
-                      }}
-                    />
-                  ))}
-                </div>
+            ) : (
+              <div className="flex h-full w-full flex-col items-center justify-center gap-2 px-4 text-center">
+                <span className="font-mono text-[11px] uppercase tracking-[0.24em] text-[var(--color-accent-dim)]">
+                  video placeholder
+                </span>
+                <span className="font-mono text-[10px] text-[var(--color-text-dim)]">
+                  Add file at /public/images/projects/{projectSlug}/{projectSlug}.mp4
+                </span>
               </div>
             )}
+
+            {project.video && (
+              <button
+                type="button"
+                onClick={() => onOpenVideo(project)}
+                className="absolute inset-0 z-[5] flex items-center justify-center transition-opacity duration-300 focus-visible:outline-none"
+                style={{
+                  opacity: hovered ? 1 : 0,
+                  background: "linear-gradient(180deg, rgba(0,0,0,0.18) 0%, rgba(0,0,0,0.5) 100%)",
+                }}
+                aria-label={`Open ${projectSlug} video player`}
+              >
+                <span
+                  className="inline-flex items-center gap-2 border px-3 py-2 font-mono text-[10px] uppercase tracking-[0.2em] transition-colors duration-200"
+                  style={{
+                    borderColor: "color-mix(in oklab, var(--color-accent) 35%, transparent)",
+                    background: "color-mix(in oklab, var(--color-bg-panel) 82%, var(--color-accent) 18%)",
+                    color: "var(--color-text-primary)",
+                    borderRadius: "2px",
+                  }}
+                >
+                  <span
+                    className="inline-block h-0 w-0"
+                    style={{
+                      borderTop: "5px solid transparent",
+                      borderBottom: "5px solid transparent",
+                      borderLeft: "8px solid var(--color-accent)",
+                    }}
+                    aria-hidden
+                  />
+                  play demo
+                </span>
+              </button>
+            )}
+
+            {/* Gradient vignette over video */}
+            <div
+              className="pointer-events-none absolute inset-0 z-[3]"
+              style={{
+                background: "linear-gradient(180deg, rgba(0,0,0,0.15) 0%, transparent 30%, transparent 65%, rgba(3,3,3,0.6) 100%), linear-gradient(90deg, rgba(3,3,3,0.25) 0%, transparent 15%, transparent 85%, rgba(3,3,3,0.25) 100%)",
+              }}
+              aria-hidden
+            />
+
+            {/* Scanline micro-texture */}
+            <div
+              className="pointer-events-none absolute inset-0 z-[4] opacity-[0.04]"
+              style={{
+                backgroundImage: "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.06) 2px, rgba(255,255,255,0.06) 4px)",
+              }}
+              aria-hidden
+            />
           </div>
-        )}
+        </div>
 
         {/* Content area */}
         <div className="relative px-4 py-4 sm:px-6 sm:py-5">
@@ -259,7 +210,7 @@ function ProjectCard({ project, delay }: { project: (typeof projects)[number]; d
               live demo
             </a>
             <span className="ml-auto font-mono text-[9px] text-[var(--color-text-dim)] opacity-0 transition-opacity duration-300 group-hover/card:opacity-100">
-              {project.path.split("/").pop()}
+              {projectSlug}
             </span>
           </div>
         </div>
@@ -271,6 +222,20 @@ function ProjectCard({ project, delay }: { project: (typeof projects)[number]; d
 export function Projects() {
   const [titleRef, titleVisible] = useReveal(0.12);
   const hasMultipleProjects = projects.length > 1;
+  const [activeVideoProject, setActiveVideoProject] = useState<(typeof projects)[number] | null>(null);
+
+  useEffect(() => {
+    if (!activeVideoProject) return undefined;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setActiveVideoProject(null);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [activeVideoProject]);
 
   return (
     <section
@@ -310,10 +275,71 @@ export function Projects() {
           }`}
         >
           {projects.map((p, i) => (
-            <ProjectCard key={p.path} project={p} delay={i * 120} />
+            <ProjectCard
+              key={p.path}
+              project={p}
+              delay={i * 120}
+              onOpenVideo={(selectedProject) => setActiveVideoProject(selectedProject)}
+            />
           ))}
         </div>
       </div>
+
+      <Dialog open={Boolean(activeVideoProject?.video)} onOpenChange={(open) => !open && setActiveVideoProject(null)}>
+        <DialogOverlay
+          className="z-[90]"
+          style={{ background: "rgba(2,2,2,0.82)" }}
+        />
+        <DialogContent
+          hideClose
+          className="z-[91] flex h-[min(92vh,980px)] w-[min(96vw,1400px)] max-w-none flex-col overflow-hidden rounded-sm border p-0"
+          style={{
+            borderColor: "color-mix(in oklab, var(--color-accent) 28%, transparent)",
+            background: "linear-gradient(168deg, var(--color-bg-elevated) 0%, color-mix(in oklab, var(--color-bg-panel) 92%, var(--color-accent) 8%) 100%)",
+            boxShadow: "0 0 0 1px color-mix(in oklab, var(--color-accent) 8%, transparent), 0 36px 100px -24px rgba(0,0,0,0.9)",
+          }}
+        >
+          <DialogTitle className="sr-only">
+            {activeVideoProject?.path ? `${activeVideoProject.path} demo video` : "Project demo video"}
+          </DialogTitle>
+
+          <div
+            className="flex items-center gap-1.5 border-b px-4 py-2.5"
+            style={{
+              borderColor: "color-mix(in oklab, var(--color-accent) 8%, transparent)",
+              background: "color-mix(in oklab, var(--color-accent) 2.5%, var(--color-bg-deep))",
+            }}
+          >
+            <span className="inline-block h-2 w-2 rounded-full bg-[#ff5f57]" />
+            <span className="inline-block h-2 w-2 rounded-full bg-[#febc2e]" />
+            <span className="inline-block h-2 w-2 rounded-full bg-[#28c840]" />
+            <span className="ml-3 font-mono text-[10px] tracking-wide text-[var(--color-accent-dim)]">
+              {activeVideoProject?.path ? `${activeVideoProject.path}/demo` : "/projects/demo"}
+            </span>
+            <button
+              type="button"
+              onClick={() => setActiveVideoProject(null)}
+              className="ml-auto font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--color-text-muted)] transition-colors duration-200 hover:text-[var(--color-accent)]"
+            >
+              close
+            </button>
+          </div>
+
+          <div className="relative min-h-0 flex-1 bg-[#050505]">
+            {activeVideoProject?.video && (
+              <video
+                key={`${activeVideoProject.video}-modal`}
+                src={activeVideoProject.video}
+                className="h-full w-full object-contain"
+                controls
+                playsInline
+                preload="metadata"
+                aria-label={`${activeVideoProject.path} full video`}
+              />
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
     </section>
   );
 }

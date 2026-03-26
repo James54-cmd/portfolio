@@ -59,7 +59,7 @@ export type Project = {
   tech: string[];
   github?: string;
   live: string;
-  images?: string[];
+  video?: string;
 };
 
 export const projects: Project[] = [
@@ -69,28 +69,14 @@ export const projects: Project[] = [
     tech: ["Next.js", "TypeScript", "Supabase", "Tailwind CSS", "OpenAI", "RAG"],
     github: "https://github.com/James54-cmd/abide",
     live: "https://abide-beta.vercel.app/login",
-    images: [
-      "/images/projects/abide/01-login.png",
-      "/images/projects/abide/02-home.png",
-      "/images/projects/abide/03-chat.png",
-      "/images/projects/abide/04-bible.png",
-      "/images/projects/abide/05-favorites.png",
-      "/images/projects/abide/06-verses.png",
-    ],
+    video: "/images/projects/abide/abide-demo.mp4",
   },
   {
     path: "/projects/ondafit",
     desc: "Team project for booking courts and studios with operations dashboards and smart scheduling flows.",
     tech: ["Next.js", "TypeScript", "Supabase", "AI", "Figma"],
     live: "https://onda.fit/",
-    images: [
-      "/images/projects/ondafit/01-dashboard.png",
-      "/images/projects/ondafit/02-facilities.png",
-      "/images/projects/ondafit/03-schedules.png",
-      "/images/projects/ondafit/04-events.png",
-      "/images/projects/ondafit/05-reviews.png",
-      "/images/projects/ondafit/06-transactions.png",
-    ],
+    video: "/images/projects/ondafit/ondafit.mp4",
   },
   {
     path: "/projects/portfolio",
@@ -98,7 +84,7 @@ export const projects: Project[] = [
     tech: ["Next.js", "TypeScript", "Tailwind CSS", "Spline", "Lucide", "Framer Motion"],
     github: "https://github.com/James54-cmd/portfolio",
     live: "https://portfolio-xi-two-93.vercel.app/",
-    images: ["/images/projects/portfolio/01-hero.png"],
+    video: "/images/projects/portfolio/portfolio.mp4",
   },
 ];
 
