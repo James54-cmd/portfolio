@@ -1,0 +1,209 @@
+@import "tailwindcss";
+
+@theme {
+  /* Cyber-terminal palette — dominant dark, sharp phosphor accent */
+  --color-bg-deep: #030303;
+  --color-bg-panel: #070707;
+  --color-bg-elevated: #0c0c0c;
+  --color-border-subtle: #141414;
+  --color-border-accent: color-mix(in oklab, var(--color-accent) 22%, transparent);
+  --color-text-primary: #ececec;
+  --color-text-muted: #6a6a6a;
+  --color-text-dim: #3d3d3d;
+  --color-accent: #00e67a;
+  --color-accent-bright: #5fffb4;
+  --color-accent-dim: #00a85c;
+  --color-magenta: #ff1a5c;
+  /* shadcn-compatible surfaces */
+  --color-card: var(--color-bg-elevated);
+  --color-card-foreground: var(--color-text-primary);
+  --color-muted-foreground: var(--color-text-muted);
+  /* Set on <html> via next/font: --font-ibm-mono, --font-syne */
+  --font-mono: var(--font-ibm-mono), ui-monospace, monospace;
+  --font-display: var(--font-syne), ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer components {
+  /**
+   * Hero Spline: blue/purple scene → green.
+   * Blue hue (~240°) + rotate 240° = 480° = 120° = green.
+   */
+  .hero-spline-root canvas {
+    filter: hue-rotate(240deg) saturate(1.6) brightness(0.82) contrast(1.1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-spline-root canvas {
+      filter: none;
+    }
+  }
+
+  /* Spline badge link stacks above canvas; bottom chrome sits below .hero-spline-root */
+  .hero-spline-root a[href*="spline.design"],
+  .hero-spline-root a[href*="spline.tool"] {
+    z-index: 6;
+  }
+
+  /**
+   * Shift + zoom the WebGL view so the robot sits lower and the bottom strip
+   * (Built with Spline) is clipped by overflow:hidden on the parent.
+   */
+  .hero-spline-shift-inner {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    width: 122%;
+    height: 130%;
+    min-height: 280px;
+    transform: translate(-50%, clamp(2.25rem, 11vh, 4.5rem)) scale(1.14);
+    transform-origin: 50% 38%;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-spline-shift-inner {
+      transform: translate(-50%, 0) scale(1);
+      height: 100%;
+      width: 100%;
+    }
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+  ::selection {
+    background: color-mix(in oklab, var(--color-accent) 28%, transparent);
+    color: var(--color-bg-deep);
+  }
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-bg-panel);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: color-mix(in oklab, var(--color-accent) 35%, transparent);
+    border-radius: 4px;
+  }
+}
+
+/* Glitch */
+@keyframes glitch-top {
+  0%,
+  90%,
+  100% {
+    clip-path: inset(0 0 100% 0);
+    transform: translate(0);
+  }
+  92% {
+    clip-path: inset(8px 0 72% 0);
+    transform: translate(-3px);
+  }
+  94% {
+    clip-path: inset(40px 0 45% 0);
+    transform: translate(3px);
+  }
+  96% {
+    clip-path: inset(2px 0 82% 0);
+    transform: translate(-2px);
+  }
+  98% {
+    clip-path: inset(60px 0 25% 0);
+    transform: translate(2px);
+  }
+}
+
+@keyframes glitch-bot {
+  0%,
+  90%,
+  100% {
+    clip-path: inset(0 0 100% 0);
+    transform: translate(0);
+  }
+  91% {
+    clip-path: inset(50px 0 20% 0);
+    transform: translate(2px);
+  }
+  93% {
+    clip-path: inset(20px 0 65% 0);
+    transform: translate(-3px);
+  }
+  95% {
+    clip-path: inset(70px 0 10% 0);
+    transform: translate(3px);
+  }
+  97% {
+    clip-path: inset(5px 0 85% 0);
+    transform: translate(-2px);
+  }
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+
+.glitch {
+  position: relative;
+  display: inline-block;
+}
+
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.glitch::before {
+  color: var(--color-accent);
+  clip-path: inset(0 0 100% 0);
+  animation: glitch-top 3.2s infinite linear;
+}
+
+.glitch::after {
+  color: var(--color-magenta);
+  clip-path: inset(0 0 100% 0);
+  animation: glitch-bot 3.2s infinite linear;
+}
+
+.blink-cursor {
+  animation: blink 1s step-end infinite;
+  color: var(--color-accent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glitch::before,
+  .glitch::after {
+    animation: none;
+    clip-path: none;
+    opacity: 0;
+  }
+  .blink-cursor {
+    animation: none;
+    opacity: 1;
+  }
+}
