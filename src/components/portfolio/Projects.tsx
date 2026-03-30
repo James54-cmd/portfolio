@@ -3,6 +3,7 @@
 import { projects } from "@/data/portfolio";
 import { Dialog, DialogContent, DialogOverlay, DialogTitle } from "@/components/ui/dialog";
 import { useReveal } from "@/hooks/useReveal";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
 function ProjectCard({
@@ -17,6 +18,7 @@ function ProjectCard({
   const [ref, visible] = useReveal(0.08);
   const [hovered, setHovered] = useState(false);
   const projectSlug = project.path.split("/").pop();
+  const mediaAvailable = Boolean(project.video || project.image);
 
   return (
     <article
@@ -69,7 +71,7 @@ function ProjectCard({
             {project.path}
           </span>
           <span className="ml-auto font-mono text-[9px] text-[var(--color-text-dim)]">
-            {project.video ? "video" : "no media"}
+            {project.video ? "video" : project.image ? "image" : "no media"}
           </span>
         </div>
 
@@ -86,18 +88,27 @@ function ProjectCard({
                 preload="metadata"
                 aria-label={`${projectSlug} demo video`}
               />
+            ) : project.image ? (
+              <Image
+                src={project.image}
+                alt={`${projectSlug} preview`}
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-cover object-top"
+                priority={false}
+              />
             ) : (
               <div className="flex h-full w-full flex-col items-center justify-center gap-2 px-4 text-center">
                 <span className="font-mono text-[11px] uppercase tracking-[0.24em] text-[var(--color-accent-dim)]">
-                  video placeholder
+                  media placeholder
                 </span>
                 <span className="font-mono text-[10px] text-[var(--color-text-dim)]">
-                  Add file at /public/images/projects/{projectSlug}/{projectSlug}.mp4
+                  Add media at /public/images/projects/{projectSlug}/
                 </span>
               </div>
             )}
 
-            {project.video && (
+            {mediaAvailable && (
               <button
                 type="button"
                 onClick={() => onOpenVideo(project)}
@@ -106,7 +117,7 @@ function ProjectCard({
                   opacity: hovered ? 1 : 0,
                   background: "linear-gradient(180deg, rgba(0,0,0,0.18) 0%, rgba(0,0,0,0.5) 100%)",
                 }}
-                aria-label={`Open ${projectSlug} video player`}
+                aria-label={`Open ${projectSlug} media preview`}
               >
                 <span
                   className="inline-flex items-center gap-2 border px-3 py-2 font-mono text-[10px] uppercase tracking-[0.2em] transition-colors duration-200"
@@ -126,7 +137,7 @@ function ProjectCard({
                     }}
                     aria-hidden
                   />
-                  play demo
+                  open preview
                 </span>
               </button>
             )}
@@ -200,15 +211,17 @@ function ProjectCard({
                 github
               </a>
             )}
-            <a
-              href={project.live}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group/link inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--color-text-muted)] no-underline transition-colors duration-200 hover:text-[var(--color-accent)] focus-visible:rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
-            >
-              <span className="inline-block h-px w-3 bg-current transition-[width] duration-200 group-hover/link:w-5" />
-              live demo
-            </a>
+            {project.live && (
+              <a
+                href={project.live}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group/link inline-flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--color-text-muted)] no-underline transition-colors duration-200 hover:text-[var(--color-accent)] focus-visible:rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]"
+              >
+                <span className="inline-block h-px w-3 bg-current transition-[width] duration-200 group-hover/link:w-5" />
+                live demo
+              </a>
+            )}
             <span className="ml-auto font-mono text-[9px] text-[var(--color-text-dim)] opacity-0 transition-opacity duration-300 group-hover/card:opacity-100">
               {projectSlug}
             </span>
@@ -222,20 +235,20 @@ function ProjectCard({
 export function Projects() {
   const [titleRef, titleVisible] = useReveal(0.12);
   const hasMultipleProjects = projects.length > 1;
-  const [activeVideoProject, setActiveVideoProject] = useState<(typeof projects)[number] | null>(null);
+  const [activeMediaProject, setActiveMediaProject] = useState<(typeof projects)[number] | null>(null);
 
   useEffect(() => {
-    if (!activeVideoProject) return undefined;
+    if (!activeMediaProject) return undefined;
 
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
-        setActiveVideoProject(null);
+        setActiveMediaProject(null);
       }
     };
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [activeVideoProject]);
+  }, [activeMediaProject]);
 
   return (
     <section
@@ -279,13 +292,16 @@ export function Projects() {
               key={p.path}
               project={p}
               delay={i * 120}
-              onOpenVideo={(selectedProject) => setActiveVideoProject(selectedProject)}
+              onOpenVideo={(selectedProject) => setActiveMediaProject(selectedProject)}
             />
           ))}
         </div>
       </div>
 
-      <Dialog open={Boolean(activeVideoProject?.video)} onOpenChange={(open) => !open && setActiveVideoProject(null)}>
+      <Dialog
+        open={Boolean(activeMediaProject?.video || activeMediaProject?.image)}
+        onOpenChange={(open) => !open && setActiveMediaProject(null)}
+      >
         <DialogOverlay
           className="z-[90]"
           style={{ background: "rgba(2,2,2,0.82)" }}
@@ -300,7 +316,7 @@ export function Projects() {
           }}
         >
           <DialogTitle className="sr-only">
-            {activeVideoProject?.path ? `${activeVideoProject.path} demo video` : "Project demo video"}
+            {activeMediaProject?.path ? `${activeMediaProject.path} media preview` : "Project media preview"}
           </DialogTitle>
 
           <div
@@ -314,11 +330,11 @@ export function Projects() {
             <span className="inline-block h-2 w-2 rounded-full bg-[#febc2e]" />
             <span className="inline-block h-2 w-2 rounded-full bg-[#28c840]" />
             <span className="ml-3 font-mono text-[10px] tracking-wide text-[var(--color-accent-dim)]">
-              {activeVideoProject?.path ? `${activeVideoProject.path}/demo` : "/projects/demo"}
+              {activeMediaProject?.path ? `${activeMediaProject.path}/preview` : "/projects/preview"}
             </span>
             <button
               type="button"
-              onClick={() => setActiveVideoProject(null)}
+              onClick={() => setActiveMediaProject(null)}
               className="ml-auto font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--color-text-muted)] transition-colors duration-200 hover:text-[var(--color-accent)]"
             >
               close
@@ -326,15 +342,25 @@ export function Projects() {
           </div>
 
           <div className="relative min-h-0 flex-1 bg-[#050505]">
-            {activeVideoProject?.video && (
+            {activeMediaProject?.video && (
               <video
-                key={`${activeVideoProject.video}-modal`}
-                src={activeVideoProject.video}
+                key={`${activeMediaProject.video}-modal`}
+                src={activeMediaProject.video}
                 className="h-full w-full object-contain"
                 controls
                 playsInline
                 preload="metadata"
-                aria-label={`${activeVideoProject.path} full video`}
+                aria-label={`${activeMediaProject.path} full video`}
+              />
+            )}
+            {activeMediaProject?.image && !activeMediaProject.video && (
+              <Image
+                src={activeMediaProject.image}
+                alt={`${activeMediaProject.path} full preview`}
+                fill
+                sizes="96vw"
+                className="object-contain"
+                priority
               />
             )}
           </div>

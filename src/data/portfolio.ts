@@ -58,8 +58,9 @@ export type Project = {
   desc: string;
   tech: string[];
   github?: string;
-  live: string;
+  live?: string;
   video?: string;
+  image?: string;
 };
 
 export const projects: Project[] = [
@@ -85,6 +86,12 @@ export const projects: Project[] = [
     github: "https://github.com/James54-cmd/portfolio",
     live: "https://portfolio-xi-two-93.vercel.app/",
     video: "/images/projects/portfolio/portfolio.mp4",
+  },
+  {
+    path: "/projects/abide-mobile",
+    desc: "Mobile-first Bible reading app UI built with Expo and React Native, focused on clean scripture navigation and devotional flow.",
+    tech: ["React Native", "Expo", "TypeScript", "Mobile UI"],
+    image: "/images/projects/abide-mobile/abide-mobile.png",
   },
 ];
 
