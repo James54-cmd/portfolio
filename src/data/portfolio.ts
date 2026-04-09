@@ -99,6 +99,7 @@ export const projects: Project[] = [
     tech: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Supabase", "shadcn/ui"],
     github: "https://github.com/James54-cmd/talent-valuation",
     live: "https://talent-valuation.vercel.app/",
+    video: "/images/projects/salario_ph/salarioph.mp4",
   },
 ];
 
