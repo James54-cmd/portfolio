@@ -93,6 +93,13 @@ export const projects: Project[] = [
     tech: ["React Native", "Expo", "TypeScript", "Mobile UI"],
     image: "/images/projects/abide-mobile/abide-mobile.png",
   },
+  {
+    path: "/projects/salario-ph",
+    desc: "Philippines-first salary benchmarking tool with localized estimates, 13th month calculations, and city-specific comparisons for 10,000+ data points.",
+    tech: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Supabase", "shadcn/ui"],
+    github: "https://github.com/James54-cmd/talent-valuation",
+    live: "https://talent-valuation.vercel.app/",
+  },
 ];
 
 export const timeline = [
